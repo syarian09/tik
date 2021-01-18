@@ -88,6 +88,6 @@ class Profil extends Component
 		$title = 'Profil User';
 		$data = [];
 		// dd($data);
-		return view('livewire.user.profil', $data)->extends('layouts.admin', ['title' => $title])->section('content');
+		return view('livewire.user.profil', $data)->extends(env('APP_LAYOUT'), ['title' => $title])->section('content');
 	}
 }

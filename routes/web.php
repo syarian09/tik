@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('profil', 'App\Http\Livewire\User\Profil')->name('profil');
     Route::get('materi', 'App\Http\Livewire\Materi\Index')->name('materi');
     Route::get('materi/baca/{id}', [PDFController::class, 'index'])->name('materi.baca');
+    Route::get('ujian', 'App\Http\Livewire\Ujian\Index')->name('ujian');
+    Route::get('nilai', 'App\Http\Livewire\Nilai\Index')->name('nilai');
     //Administrator
     Route::group(['middleware' => ['ceklevel:9']], function () {
         Route::get('user', 'App\Http\Livewire\User\Index')->name('user');

@@ -48,6 +48,18 @@
 						</a>
 					</li>
 
+					<li class="{{ Request::is('ujian*') ? 'active' : '' }}">
+						<a href="{{ route('ujian') }}">
+							<i class="fa fa-book"></i><span class="nav-label">Ujian</span>
+						</a>
+					</li>
+
+					<li class="{{ Request::is('nilai*') ? 'active' : '' }}">
+						<a href="{{ route('nilai') }}">
+							<i class="fa fa-puzzle-piece"></i><span class="nav-label">Nilai</span>
+						</a>
+					</li>
+
 					@if (Auth::user()->level == 9)
 					<li class="{{ Request::is('user*') ? 'active' : '' }}">
 						<a href="{{ route('user') }}">

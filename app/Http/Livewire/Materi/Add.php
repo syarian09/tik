@@ -89,6 +89,6 @@ class Add extends Component
 			'arr_kelas' => Kelas::all(),
 		];
 		// dd($data);
-		return view('livewire.materi.add', $data)->extends('layouts.admin', ['title' => $title])->section('content');
+		return view('livewire.materi.add', $data)->extends(env('APP_LAYOUT'), ['title' => $title])->section('content');
 	}
 }

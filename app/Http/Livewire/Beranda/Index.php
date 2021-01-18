@@ -10,6 +10,6 @@ class Index extends Component
     {
         $title = 'Beranda';
         $data = [];
-        return view('livewire.beranda.index', $data)->extends('layouts.admin', ['title' => $title])->section('content');
+        return view('livewire.beranda.index', $data)->extends(env('APP_LAYOUT'), ['title' => $title])->section('content');
     }
 }

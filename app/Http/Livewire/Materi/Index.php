@@ -70,6 +70,6 @@ class Index extends Component
         if (Auth::user()->level == 9) {
             $view = 'livewire.materi.index';
         }
-		return view($view, $data)->extends('layouts.admin', ['title' => $title])->section('content');
+		return view($view, $data)->extends(env('APP_LAYOUT'), ['title' => $title])->section('content');
     }
 }

@@ -132,6 +132,6 @@ class Index extends Component
 			'users' => $this->data(),
 		];
 		// dd($data);
-		return view('livewire.user.index', $data)->extends('layouts.admin', ['title' => $title])->section('content');
+		return view('livewire.user.index', $data)->extends(env('APP_LAYOUT'), ['title' => $title])->section('content');
 	}
 }
