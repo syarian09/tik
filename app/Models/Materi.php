@@ -9,7 +9,7 @@ use Storage;
 class Materi extends Model
 {
 	use HasFactory;
-	protected $fillable = ['judul','isi_materi','kelas_id','photo'];
+	protected $fillable = ['judul','isi_materi','kelas_id','photo','baca'];
 	protected $appends = ['nama_kelas', 'photo_url', 'photo_ori'];
 	
 	public function getNamaKelasAttribute()

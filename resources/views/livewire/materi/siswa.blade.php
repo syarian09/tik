@@ -17,8 +17,8 @@
                {{-- <span class="product-price">$10</span> --}}
                <a href="#" class="product-name"> {{ $row->judul }}</a>
                <div class="m-t text-righ">
-                  <a href="{{ route('materi.baca', ['id'=> $row->id ]) }}" class="btn btn-xs btn-outline btn-primary"
-                     target="_blank">Baca Materi <i class="fa fa-long-arrow-right"></i> </a>
+                  <a href="{{ route('materi.baca', ['id'=> $row->id ]) }}" class="btn btn-xs btn-outline btn-primary" target="_blank"
+                     wire:click="baca({{ $row->id }})">Baca Materi <i class="fa fa-long-arrow-right"></i> </a>
                </div>
             </div>
          </div>

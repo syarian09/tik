@@ -31,8 +31,8 @@
 				<a class="page-link">{{ $page }}</a>
 			</li>
 			@else
-			<li class="page-item">
-				<a class="page-link" href="{{ $url }}" id="{{$page}}"> {{ $page }} </a>
+			<li class="page-item" wire:key={{ $page }}>
+				<a class="page-link" wire:click="gotoPage({{ $page }})"> {{ $page }} </a>
 			</li>
 			@endif
 			@endforeach

@@ -17,6 +17,11 @@ class Index extends Component
 	public $name, $nisn, $user_id, $kelas_id;
 	public $chuser_id = [], $edit_data = false, $selectAll = false;
 
+	public function updatingKelasId()
+	{
+		$this->resetPage();
+	}
+
 	public function paginationView()
    {
       return 'layouts.page';

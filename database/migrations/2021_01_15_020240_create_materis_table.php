@@ -19,6 +19,7 @@ class CreateMaterisTable extends Migration
             $table->longText('isi_materi')->nullable();
             $table->string('kelas_id')->nullable();
             $table->string('photo')->nullable();
+            $table->longText('baca')->nullable();
             $table->timestamps();
         });
     }
