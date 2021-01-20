@@ -26,7 +26,8 @@
 					<tbody>
 						@forelse ($belumlogin as $user)
 						<tr>
-							<td class="align-middle">{{ $loop->iteration }}</td>
+							<td class="align-middle">
+								{{ ($belumlogin->currentpage()-1) * $belumlogin->perpage() + $loop->index + 1 }}</td>
 							<td class="align-middle text-center"><img src="{{ $user->photo_url }}" class="img-sm"></td>
 							<td class="align-middle">{{ $user->name }}</td>
 						</tr>

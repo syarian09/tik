@@ -74,6 +74,7 @@ class Index extends Component
 			'arr_kelas' => Kelas::pluck('kelas', 'id'),
 			// 'belumbaca' => $this->belumbacamateri(),
 		];
+		// dd($data);
 		return view('livewire.beranda.index', $data)->extends(env('APP_LAYOUT'), ['title' => $title])->section('content');
 	}
 }
