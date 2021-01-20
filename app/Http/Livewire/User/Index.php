@@ -98,8 +98,6 @@ class Index extends Component
 		if (!empty($this->chuser_id)) {
 			foreach ($this->chuser_id as $id) {
 				$user = User::find($id);
-				$user->photo = null;
-				$user->hp = null;
 				$user->password = Hash::make($user->nisn);
 				$user->save();
 			}
