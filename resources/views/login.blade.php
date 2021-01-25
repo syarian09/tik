@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
-  <title>Bimibingan TIK | Login</title>
+  <title>Bimbingan TIK | Login</title>
   <link href="{{url('/')}}/assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{url('/')}}/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
   <link href="{{url('/')}}/assets/css/animate.css" rel="stylesheet">
