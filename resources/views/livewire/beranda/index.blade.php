@@ -34,7 +34,7 @@
               <td class="align-middle">{{ $loop->iteration }}</td>
               <td class="align-middle">{{ $row->judul }}</td>
               <td>
-                @if (in_array(Auth::user()->id,json_decode($row->baca)))
+                @if (in_array(Auth::user()->id,json_decode($row->baca) ?? []))
                 <span class="label label-primary">Sudah dibaca</span>
                 @else
                 <span class="label label-danger">Belum dibaca</span>

@@ -49,11 +49,6 @@ class Index extends Component
     return $users;
   }
 
-  public function updateProfil()
-  {
-    # code...
-  }
-
   public function baca($id)
   {
     $materi = Materi::find($id);
