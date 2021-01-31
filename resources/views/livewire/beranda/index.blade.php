@@ -25,7 +25,7 @@
             <tr>
               <th>No</th>
               <th>Judul</th>
-              <th>Status</th>
+              <th style="width: 30%">Status</th>
             </tr>
           </thead>
           <tbody>
