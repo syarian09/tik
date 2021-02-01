@@ -20,7 +20,7 @@
             <tr>
               <th style="width: 5%;">No</th>
               <th style="width: 5%;">Photo</th>
-              <th>Nama Lengkap</th>
+              <th style="width: 35%">Nama Lengkap</th>
               <th>Materi</th>
             </tr>
           </thead>
@@ -33,7 +33,7 @@
               <td class="align-middle">{{ $user->name }}</td>
               <td class="align-middle">
                 @foreach ($user->materis() as $baca)
-                {{ Str::limit($baca['judul'], 20) }}
+                {{ Str::limit($baca['judul'], 23) }}
                 @if ($baca['baca'] == 'Sudah dibaca')
                 <span class="label label-primary"> {{ $baca['baca'] }}</span>
                 @else
