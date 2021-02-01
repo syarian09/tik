@@ -33,7 +33,7 @@
               <td class="align-middle">{{ $user->name }}</td>
               <td class="align-middle">
                 @foreach ($user->materis() as $baca)
-                {{ Str::limit($baca['judul'], 23) }}
+                {{ Str::limit($baca['judul'], 20) }}
                 @if ($baca['baca'] == 'Sudah dibaca')
                 <span class="label label-primary"> {{ $baca['baca'] }}</span>
                 @else
