@@ -33,13 +33,12 @@
               <td class="align-middle">{{ $user->name }}</td>
               <td class="align-middle">
                 @foreach ($user->materis() as $baca)
-                <small class="text-muted">{{ $baca['judul'] }} Status =
-                  @if ($baca['baca'] == 'Sudah dibaca')
-                  <span class="badge badge-primary">{{ $baca['baca'] }}</span>
-                  @else
-                  <span class="badge badge-danger">{{ $baca['baca'] }}</span>
-                  @endif
-                </small>
+                {{ Str::limit($baca['judul'], 23) }}
+                @if ($baca['baca'] == 'Sudah dibaca')
+                <span class="label label-primary"> {{ $baca['baca'] }}</span>
+                @else
+                <span class="label badge-danger"> {{ $baca['baca'] }}</span>
+                @endif
                 <br>
                 @endforeach
               </td>
