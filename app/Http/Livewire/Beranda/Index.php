@@ -49,6 +49,14 @@ class Index extends Component
     return $users;
   }
 
+  public function belumbaca()
+  {
+    $users = User::orderBy('kelas_id')->orderBy('name')->where('level', '!=', 9);
+    if ($this->kelas_id) $users = $users->where('kelas_id', $this->kelas_id);
+    $users = $users->Paginate(10);
+    return $users;
+  }
+
   public function baca($id)
   {
     $materi = Materi::find($id);
@@ -75,7 +83,9 @@ class Index extends Component
       'belumlogin' => $this->belumlogin(),
       'arr_kelas' => Kelas::pluck('kelas', 'id'),
       'materi' => $this->materi(),
+      'belumbaca' => $this->belumbaca(),
     ];
+    // dd($data);
 
     $view = 'livewire.beranda.index';
     if (Auth::user()->level == 9) {

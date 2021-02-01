@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col col-md-12" wire:click="tbl_name('profil')">
+  <div class="col col-md-6" wire:click="tbl_name('profil')">
     <div class="ibox">
       <div class="ibox-title">
-        <h5>Status Baca Materi Siswa</h5>
+        <h5>Belum Update Profil</h5>
       </div>
       <div class="ibox-content">
-
+        @if (Auth::user()->level == 9)
         <div class="mb-2">
           <div class="form-group row">
             <div class="col-md-12">
@@ -14,35 +14,22 @@
             </div>
           </div>
         </div>
-
+        @endif
         <table class="table table-bordered">
           <thead class="text-center">
             <tr>
               <th style="width: 5%;">No</th>
               <th style="width: 5%;">Photo</th>
               <th>Nama Lengkap</th>
-              <th>Materi</th>
             </tr>
           </thead>
           <tbody>
-            @forelse ($belumbaca as $user)
+            @forelse ($belumlogin as $user)
             <tr>
               <td class="align-middle">
-                {{ ($belumbaca->currentpage()-1) * $belumbaca->perpage() + $loop->index + 1 }}</td>
+                {{ ($belumlogin->currentpage()-1) * $belumlogin->perpage() + $loop->index + 1 }}</td>
               <td class="align-middle text-center"><img src="{{ $user->photo_url }}" class="img-sm"></td>
               <td class="align-middle">{{ $user->name }}</td>
-              <td class="align-middle">
-                @foreach ($user->materis() as $baca)
-                <small class="text-muted">{{ $baca['judul'] }} Status =
-                  @if ($baca['baca'] == 'Sudah dibaca')
-                  <span class="badge badge-primary">{{ $baca['baca'] }}</span>
-                  @else
-                  <span class="badge badge-danger">{{ $baca['baca'] }}</span>
-                  @endif
-                </small>
-                <br>
-                @endforeach
-              </td>
             </tr>
             @empty
             <tr>
@@ -51,7 +38,7 @@
             @endforelse
           </tbody>
         </table>
-        {{ $belumbaca->links() }}
+        {{ $belumlogin->links() }}
       </div>
     </div>
   </div>
