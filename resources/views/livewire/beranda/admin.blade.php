@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col col-md-12" wire:click="tbl_name('profil')">
+  <div class="col col-md-6" wire:click="tbl_name('profil')">
     <div class="ibox">
       <div class="ibox-title">
         <h5>Status Baca Materi Siswa</h5>
