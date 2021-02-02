@@ -51,7 +51,7 @@ class Index extends Component
 
   public function belumbaca()
   {
-    $users = User::orderBy('kelas_id')->orderBy('name')->where('level', '!=', 9);
+    $users = User::orderBy('kelas_id')->orderBy('name')->where('level', '!=', 9)->whereNotIn('nisn', [7, 8, 9]);
     if ($this->kelas_id) $users = $users->where('kelas_id', $this->kelas_id);
     $users = $users->Paginate(10);
     return $users;
