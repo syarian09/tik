@@ -29,7 +29,7 @@
             <tr>
               <td class="align-middle">
                 {{ ($belumbaca->currentpage()-1) * $belumbaca->perpage() + $loop->index + 1 }}</td>
-              <td class="align-middle text-center"><img src="{{ $user->photo_url }}" class="img-sm"></td>
+              <td class="align-middle text-center"><img src="{{ $user->photo_url }}" class="img-sm rounded-circle"></td>
               <td class="align-middle">{{ $user->name }}</td>
               <td class="align-middle">
                 @foreach ($user->materis() as $baca)

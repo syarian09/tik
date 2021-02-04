@@ -1,50 +1,50 @@
 <div class="row">
-	<div class="col col-12">
-		<div class="ibox">
-			<div class="ibox-title">
-				<h5>Tambah Materi Pelajaran</h5>
-			</div>
-			<div class="ibox-content">
-				<div class="form-group row">
-					<input type="hidden" wire:model="materi_id">
-					<label class="col-md-2">Kelas</label>
-					<div class="col-md-10 @error('kelas') has-error @enderror">
-						@foreach ($arr_kelas as $kls)
-						<label class="mr-2"><input type="checkbox" class="i-checks" wire:model="kelas_id" value="{{ $kls->id }}">
-							{{ $kls->kelas }}</label>
-						@endforeach
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-md-2 col-form-label">Judul Materi</label>
-					<div class="col-md-10 input-group @error('judul') has-error @enderror">
-						<input type="text" class="form-control" wire:model="judul">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-md-2 col-form-label">Photo</label>
-					<div class="col-md-10">
-						{!! Form::file('photo', ['class' => '', 'wire:model' => 'photo']) !!}
-					</div>
-				</div>
-				<div class="form-group" wire:ignore>
-					<textarea class="isi" id="isi" rows="10">{{ $isi }}</textarea>
-				</div>
-			</div>
-			<div class="ibox-footer pb-5">
-				<span class="float-right">
-					<a href="{{ route('materi') }}" class="btn btn-white btn-sm">Tutup</a>
-					<button class="btn btn-primary btn-sm" wire:click.prevent="save()" id="btn_simpan">Simpan</button>
-				</span>
-			</div>
-		</div>
-	</div>
+  <div class="col col-12">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Tambah Materi Pelajaran</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="form-group row">
+          <input type="hidden" wire:model="materi_id">
+          <label class="col-md-2">Kelas</label>
+          <div class="col-md-10 @error('kelas') has-error @enderror">
+            @foreach ($arr_kelas as $kls)
+            <label class="mr-2"><input type="checkbox" class="i-checks" wire:model="kelas_id" value="{{ $kls->id }}">
+              {{ $kls->kelas }}</label>
+            @endforeach
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label">Judul Materi</label>
+          <div class="col-md-10 input-group @error('judul') has-error @enderror">
+            <input type="text" class="form-control" wire:model="judul">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label">Photo</label>
+          <div class="col-md-10">
+            {!! Form::file('photo', ['class' => '', 'wire:model' => 'photo']) !!}
+          </div>
+        </div>
+        <div class="form-group" wire:ignore>
+          <textarea class="isi" id="isi" rows="10">{{ $isi }}</textarea>
+        </div>
+      </div>
+      <div class="ibox-footer pb-5">
+        <span class="float-right">
+          <a href="{{ route('materi') }}" class="btn btn-white btn-sm">Tutup</a>
+          <button class="btn btn-primary btn-sm" wire:click.prevent="save()" id="btn_simpan">Simpan</button>
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 
 @push('scripts')
 <script src="{{ url('/') }}/assets/tinymce/tinymce.min.js"></script>
 <script>
-	var editor_config = {
+  var editor_config = {
 		path_absolute : "/",
       mode : "textareas",
 		indentation : '15pt',
