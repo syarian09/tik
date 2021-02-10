@@ -25,12 +25,12 @@
 
   <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 20px; margin-bottom: 20px;">
     <tr>
-      <td style="width: 10%">Nama Mapel </td>
+      <td style="width: 30%">Nama Mapel </td>
       <td style="width: 2%">:</td>
       <td><b>Bimbingan TIK</b></td>
     </tr>
     <tr>
-      <td style="width: 10%">Kelas </td>
+      <td style="width: 30%">Kelas </td>
       <td style="width: 2%">:</td>
       <td>{{ Str::of($kelas)->substr(0, 7) }}</td>
     </tr>
