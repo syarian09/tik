@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('bimbingantik', function () {
-  return 'hai';
-});
+Route::post('bimbingantik', [ApiController::class, 'ulangan'])->name('api.ulangan');
