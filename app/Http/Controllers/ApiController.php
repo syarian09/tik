@@ -8,11 +8,12 @@ class ApiController extends Controller
 {
   public function ulangan(Request $request)
   {
-    $app = $request->input('app');
-    $sender = $request->input('sender');
-    $message = $request->input('message');
+    $senderMessage = $request->input('senderMessage');
+    $senderName = $request->input('senderName');
 
-    $reply['reply'] = 'Hai App = ' . $app . ' Sender = ' . $sender . ' Message = ' . $message;
+    $reply['data'][] = [
+      'message' => 'Hai senderName = ' . $senderName . ' senderMessage = ' . $senderMessage,
+    ];
     return $reply;
   }
 }
