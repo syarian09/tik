@@ -198,11 +198,10 @@ class ApiController extends Controller
       $ulangan = collect(json_decode($ulangan))->count();
       if ($jml != $ulangan) {
         $reply['data'][] = [
-          'message' => 'Jawaba anda tidak lengkap, silahkan perbaiki kembali',
+          'message' => 'Jawaban anda tidak lengkap, silahkan periksa kembali',
         ];
         return $reply;
       }
-
       $arr = collect($arr)->toJson();
       $cekToken->jawaban = $arr;
       $cekToken->save();
