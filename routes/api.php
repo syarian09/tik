@@ -19,4 +19,5 @@ use App\Http\Controllers\ApiController;
 //     return $request->user();
 // });
 
-Route::post('bimbingantik', [ApiController::class, 'ulangan'])->name('api.ulangan');
+Route::post('ulangan', [ApiController::class, 'ulangan']);
+Route::post('terimanisn', [ApiController::class, 'terimaNISN']);
