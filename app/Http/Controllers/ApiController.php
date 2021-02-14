@@ -196,7 +196,7 @@ class ApiController extends Controller
       $ulangan = collect(json_decode($cekToken->ulangan->soal))->count();
       if ($jml != $ulangan) {
         $reply['data'][] = [
-          'message' => 'Jawaban anda tidak lengkap, silahkan periksa kembali jawaban anda,
+          'message' => 'Jawaban anda tidak lengkap, silahkan periksa kembali jawaban anda',
         ];
         return $reply;
       }
