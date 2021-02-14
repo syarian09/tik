@@ -21,3 +21,4 @@ use App\Http\Controllers\ApiController;
 
 Route::post('ulangan', [ApiController::class, 'ulangan']);
 Route::post('terimanisn', [ApiController::class, 'terimaNISN']);
+Route::post('terimatoken', [ApiController::class, 'terimaToken']);

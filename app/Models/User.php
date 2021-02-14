@@ -66,4 +66,14 @@ class User extends Authenticatable
   {
     return Str::title($value);
   }
+
+  public function jawaban()
+  {
+    return Jawaban::where('user_id', $this->id)->first();
+  }
+
+  public function ulangan()
+  {
+    return Ulangan::where('id', $this->jawaban()->ulangan_id)->first();
+  }
 }
