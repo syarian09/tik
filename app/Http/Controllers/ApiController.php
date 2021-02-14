@@ -181,7 +181,6 @@ class ApiController extends Controller
         ];
         return $reply;
       }
-      $ulangan = collect(json_decode($cekToken->ulangan->soal))->count();
       $jawab = collect($pesan)->filter(function ($item, $key) {
         return $key != 0 ? $item : false;
       })->filter();
@@ -194,10 +193,10 @@ class ApiController extends Controller
         $arr[$no] = $jwb;
       }
       $jml = count($arr);
-      $ulangan = collect(json_decode($ulangan, true))->count();
+      $ulangan = collect(json_decode($cekToken->ulangan->soal))->count();
       if ($jml != $ulangan) {
         $reply['data'][] = [
-          'message' => 'Jawaban anda tidak ' . $jml . ', silahkan periksa kembali ' . $ulangan,
+          'message' => 'Jawaban anda tidak lengkap, silahkan periksa kembali jawaban anda,
         ];
         return $reply;
       }
