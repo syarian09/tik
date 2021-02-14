@@ -157,10 +157,6 @@ class ApiController extends Controller
 
   public function terimaJawaban()
   {
-    $cekToken = Jawaban::find(1);
-    $cekToken->jawaban = $this->pesan;
-    $cekToken->save();
-    exit();
     $n = "\n";
     $pesan = Str::of($this->pesan)->explode($n);
     $token = collect($pesan)->filter(function ($item, $key) {
@@ -199,7 +195,7 @@ class ApiController extends Controller
       }
 
       $jml = count($arr);
-      $ulangan = collect(json_decode($ulangan))->count();
+      $ulangan = collect(json_decode($ulangan, true))->count();
       if ($jml != $ulangan) {
         $reply['data'][] = [
           'message' => 'Jawaban anda tidak lengkap, silahkan periksa kembali',
