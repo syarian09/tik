@@ -34,10 +34,12 @@ class ApiController extends Controller
     if ($db) {
       $cekJwb = Jawaban::where('user_id', $db->id)->first();
       $cekUjian = Ulangan::where('aktif', 1)->first();
-      $cekJwb->token = $token;
-      $cekJwb->ulangan_id = $cekUjian->id;
-      $cekJwb->save();
-
+      if ($cekJwb ==  null) {
+        $reply['data'][] = [
+          'message' => 'Maaf tidak ada Tugas / Ujian yang aktif hari ini',
+        ];
+        return $reply;
+      }
       if ($cekJwb && $cekJwb->jawaban) {
         $reply['data'][] = [
           'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekJwb->token . ', terima kasih',
@@ -45,6 +47,9 @@ class ApiController extends Controller
         return $reply;
       }
 
+      $cekJwb->token = $token;
+      $cekJwb->ulangan_id = $cekUjian->id;
+      $cekJwb->save();
       if ($cekJwb && $cekJwb->token) {
         $token = $cekJwb->token;
       }
