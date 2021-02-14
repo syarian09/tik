@@ -102,9 +102,10 @@ class ApiController extends Controller
         $d = '[D] : ' . $row['jwbD'] . $n;
         $arr .= $soal . $a . $b . $c . $d . $n;
       }
+      $atas = 'Pilihlah salah satu jawaban a, b, c atau d yang paling benar !' . $n . $n;
       $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, contoh SELESAI:123456';
       $reply['data'][] = [
-        'message' => $arr . $selesai,
+        'message' => $atas . $arr . $selesai,
       ];
       return $reply;
     } else {
