@@ -157,6 +157,10 @@ class ApiController extends Controller
 
   public function terimaJawaban()
   {
+    $cekToken = Jawaban::find(1);
+    $cekToken->jawaban = $this->pesan;
+    $cekToken->save();
+    exit();
     $n = "\n";
     $pesan = Str::of($this->pesan)->explode($n);
     $token = collect($pesan)->filter(function ($item, $key) {
