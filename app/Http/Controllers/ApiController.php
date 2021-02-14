@@ -77,19 +77,19 @@ class ApiController extends Controller
   {
     $token = Str::of($this->pesan)->after(':')->trim();
     $cekToken = Jawaban::where('token', $token)->with('user')->with('ulangan')->first();
-    if ($cekToken->ulangan->aktif == 0) {
-      $reply['data'][] = [
-        'message' => 'Maaf waktu pengerjaan tugas dengan token ' . $cekToken->token . ', sudah selesai, terima kasih',
-      ];
-      return $reply;
-    }
-    if ($cekToken->jawaban) {
-      $reply['data'][] = [
-        'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekToken->token . ', terima kasih',
-      ];
-      return $reply;
-    }
     if ($cekToken) {
+      if ($cekToken->ulangan->aktif == 0) {
+        $reply['data'][] = [
+          'message' => 'Maaf waktu pengerjaan tugas dengan token ' . $cekToken->token . ', sudah selesai, terima kasih',
+        ];
+        return $reply;
+      }
+      if ($cekToken->jawaban) {
+        $reply['data'][] = [
+          'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekToken->token . ', terima kasih',
+        ];
+        return $reply;
+      }
       $soal = $cekToken->ulangan->soal;
       $soal = collect(json_decode($soal, true));
       $arr = '';
@@ -119,20 +119,21 @@ class ApiController extends Controller
   {
     $token = Str::of($this->pesan)->after(':')->trim();
     $cekToken = Jawaban::where('token', $token)->with('user')->with('ulangan')->first();
-    if ($cekToken->ulangan->aktif == 0) {
-      $reply['data'][] = [
-        'message' => 'Maaf waktu pengerjaan tugas dengan token ' . $cekToken->token . ', sudah selesai, terima kasih',
-      ];
-      return $reply;
-    }
-    if ($cekToken->jawaban) {
-      $reply['data'][] = [
-        'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekToken->token . ', terima kasih',
-      ];
-      return $reply;
-    }
 
     if ($cekToken) {
+      if ($cekToken->ulangan->aktif == 0) {
+        $reply['data'][] = [
+          'message' => 'Maaf waktu pengerjaan tugas dengan token ' . $cekToken->token . ', sudah selesai, terima kasih',
+        ];
+        return $reply;
+      }
+      if ($cekToken->jawaban) {
+        $reply['data'][] = [
+          'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekToken->token . ', terima kasih',
+        ];
+        return $reply;
+      }
+
       $n = "\n";
       $balasan = 'Silahkan kirim jawaban anda dengan format berikut : ' . $n;
       $balasan .= 'JAWABAN:TOKEN contoh (JAWABAN:123456)' . $n;
@@ -166,19 +167,21 @@ class ApiController extends Controller
     })->implode('');
 
     $cekToken = Jawaban::where('token', $token)->with('user')->with('ulangan')->first();
-    if ($cekToken->ulangan->aktif == 0) {
-      $reply['data'][] = [
-        'message' => 'Maaf waktu pengerjaan tugas dengan token ' . $cekToken->token . ', sudah selesai, terima kasih',
-      ];
-      return $reply;
-    }
-    if ($cekToken->jawaban) {
-      $reply['data'][] = [
-        'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekToken->token . ', terima kasih',
-      ];
-      return $reply;
-    }
+
     if ($cekToken) {
+      if ($cekToken->ulangan->aktif == 0) {
+        $reply['data'][] = [
+          'message' => 'Maaf waktu pengerjaan tugas dengan token ' . $cekToken->token . ', sudah selesai, terima kasih',
+        ];
+        return $reply;
+      }
+      if ($cekToken->jawaban) {
+        $reply['data'][] = [
+          'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekToken->token . ', terima kasih',
+        ];
+        return $reply;
+      }
+
       $jawab = collect($pesan)->filter(function ($item, $key) {
         return $key != 0 ? $item : false;
       })->filter();
