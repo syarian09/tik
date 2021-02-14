@@ -15,10 +15,11 @@ class CreateJawabansTable extends Migration
   {
     Schema::create('jawabans', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-      $table->foreignId('ulangan_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-      $table->integer('token')->unsigned()->nullable();
+      $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+      $table->foreignId('ulangan_id')->constrained('ulangans')->onUpdate('cascade')->onDelete('cascade');
+      $table->string('token')->nullable();
       $table->longText('jawaban')->nullable();
+      $table->string('nilai')->nullable();
       $table->timestamps();
     });
   }
