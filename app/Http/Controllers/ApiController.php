@@ -51,7 +51,7 @@ class ApiController extends Controller
       // $kelas = $db->nama_kelas;
       // $token = Str::random(4);
     } else {
-      $balasan = 'Terima Kasih tidak ada Sudah berpatisipasi, ini detail data anda : "\n" Hai';
+      $balasan = "Terima Kasih tidak ada Sudah berpatisipasi, ini detail data anda : \n Hai";
       $reply['data'][] = [
         'message' => $balasan,
       ];
