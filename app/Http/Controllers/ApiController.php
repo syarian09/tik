@@ -41,14 +41,21 @@ class ApiController extends Controller
         return $reply;
       }
       $balasan = 'Terima Kasih ' . $db->nama . ' Sudah berpatisipasi, ini detail data anda : "\n" Hai';
-      return $balasan;
+      $reply['data'][] = [
+        'message' => $balasan,
+      ];
+      return $reply;
 
       // $nama = $db->nama;
       // $nisn = $db->nisn;
       // $kelas = $db->nama_kelas;
       // $token = Str::random(4);
     } else {
-      return 'Data Tidak Ditemukan';
+      $balasan = 'Terima Kasih tidak ada Sudah berpatisipasi, ini detail data anda : "\n" Hai';
+      $reply['data'][] = [
+        'message' => $balasan,
+      ];
+      return $reply;
     }
   }
 }
