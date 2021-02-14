@@ -23,4 +23,5 @@ Route::post('ulangan', [ApiController::class, 'ulangan']);
 Route::post('terimanisn', [ApiController::class, 'terimaNISN']);
 Route::post('terimatoken', [ApiController::class, 'terimaToken']);
 Route::post('terimaselesai', [ApiController::class, 'terimaSelesai']);
+Route::post('terimajawaban', [ApiController::class, 'terimaJawaban']);
 Route::post('terimanilai', [ApiController::class, 'terimaNilai']);
