@@ -189,7 +189,7 @@ class ApiController extends Controller
       foreach ($jawab as $row) {
         $val = Str::of($row)->explode(':');
         $no = trim($val[0]);
-        $jwb = trim($val[1]);
+        $jwb = strtoupper(trim($val[1]));
         $arr[$no] = $jwb;
       }
       $jml = count($arr);
