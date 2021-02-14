@@ -32,9 +32,9 @@ class ApiController extends Controller
     $nisn = Str::of($this->pesan)->after(':')->ltrim()->rtrim();
     $db = User::where('nisn', $nisn)->first();
     if ($db) {
-      $cekJwb = Jawaban::where('user_id', $db->id)->first();
       $cekUjian = Ulangan::whereJsonContains('kelas_id', $db->kelas_id)->where('aktif', 1)->first();
-      if ($cekJwb ==  null) {
+      $cekJwb = Jawaban::where('ulangan_id', $cekUjian->id)->where('user_id', $db->id)->first();
+      if ($cekUjian ==  null) {
         $reply['data'][] = [
           'message' => 'Maaf tidak ada Tugas / Ujian yang aktif hari ini',
         ];
@@ -47,12 +47,17 @@ class ApiController extends Controller
         return $reply;
       }
 
-      $cekJwb->token = $token;
-      $cekJwb->ulangan_id = $cekUjian->id;
-      $cekJwb->save();
+      $token = $cekJwb->token ? $cekJwb->token : $token;
+      $data = [
+        'ulangan_id' => $cekUjian->id,
+        'user_id' => $db->user_id,
+        'token' => $token,
+      ];
+      Jawaban::updateOrCreate(['id' => $cekJwb->id], $data);
       if ($cekJwb && $cekJwb->token) {
         $token = $cekJwb->token;
       }
+
       $n = "\n";
       $balasan = 'Terima Kasih ' . $db->nama . ' Sudah berpatisipasi, ini detail data anda : ' . $n;
       $balasan .= 'Nama : ' . $db->nama . $n . 'NISN : ' . $db->nisn . $n . 'Kelas : ' . $db->nama_kelas . $n . 'Token : ' . $token;
