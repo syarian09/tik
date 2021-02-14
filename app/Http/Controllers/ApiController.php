@@ -30,10 +30,12 @@ class ApiController extends Controller
   public function terimaNISN()
   {
     $nisn = Str::of($this->pesan)->after(':')->ltrim()->rtrim();
-    $db = User::where('nisn', $nisn)->first();
-    if ($db) {
-      $cekUjian = Ulangan::whereJsonContains('kelas_id', $db->kelas_id)->where('aktif', 1)->first();
-      $cekJwb = Jawaban::where('ulangan_id', $cekUjian->id)->where('user_id', $db->id)->first();
+    $user = User::where('nisn', $nisn)->first();
+    $token = collect(range(1, 9))->random(4);
+    $token = collect($token)->implode('');
+    if ($user) {
+      $cekUjian = Ulangan::whereJsonContains('kelas_id', $user->kelas_id)->where('aktif', 1)->first();
+      $cekJwb = Jawaban::where('ulangan_id', $cekUjian->id)->where('user_id', $user->id)->first();
       if ($cekUjian ==  null) {
         $reply['data'][] = [
           'message' => 'Maaf tidak ada Tugas / Ujian yang aktif hari ini',
@@ -47,20 +49,20 @@ class ApiController extends Controller
         return $reply;
       }
 
-      $token = $cekJwb->token ? $cekJwb->token : $token;
       $data = [
         'ulangan_id' => $cekUjian->id,
-        'user_id' => $db->user_id,
-        'token' => $token,
+        'user_id' => $user->id,
+        'token' => $cekJwb->token ?? $token,
       ];
-      Jawaban::updateOrCreate(['id' => $cekJwb->id], $data);
+      Jawaban::updateOrCreate(['id' => $cekJwb->id ?? null], $data);
+
       if ($cekJwb && $cekJwb->token) {
         $token = $cekJwb->token;
       }
 
       $n = "\n";
-      $balasan = 'Terima Kasih ' . $db->nama . ' Sudah berpatisipasi, ini detail data anda : ' . $n;
-      $balasan .= 'Nama : ' . $db->nama . $n . 'NISN : ' . $db->nisn . $n . 'Kelas : ' . $db->nama_kelas . $n . 'Token : ' . $token;
+      $balasan = 'Terima Kasih ' . Str::upper($user->name) . ' Sudah berpatisipasi, ini detail data anda : ' . $n;
+      $balasan .= 'Nama : ' . $user->name . $n . 'NISN : ' . $user->nisn . $n . 'Kelas : ' . $user->nama_kelas . $n . 'Token : ' . $token . $n;
       $balasan .= 'Simpan TOKEN sebaik mungkin, ketik MULAI bila anda sudah siap mengerjakan tugas';
       $reply['data'][] = [
         'message' => $balasan,
