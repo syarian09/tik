@@ -22,6 +22,18 @@ class Index extends Component
     }
   }
 
+  public function aktif($id)
+  {
+    $db = Ulangan::find($id);
+    if ($db->aktif == 0) {
+      $db->aktif = 1;
+      $db->save();
+    } else {
+      $db->aktif = 0;
+      $db->save();
+    }
+  }
+
   public function delete()
   {
     if (!empty($this->ch_id)) {

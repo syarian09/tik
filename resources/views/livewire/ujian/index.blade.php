@@ -26,6 +26,7 @@
               <td style="width: 4%"><input type="checkbox" class="i-checks" wire:model="selectAll"></td>
               <th>Judul Ulangan</th>
               <th>Kelas</th>
+              <th>Aktif</th>
               <th style="width: 10%;">Aksi</th>
             </tr>
           </thead>
@@ -37,6 +38,9 @@
                 </td>
                 <td class="align-middle">{{ $row->judul }}</td>
                 <td class="align-middle">{{ $row->nama_kelas }}</td>
+                <td class="align-middle text-center">
+                  <input type="checkbox" class="i-checks" wire:click="aktif({{ $row->id }})" @if ($row->aktif == 1) checked @endif>
+                </td>
                 <td class="align-middle text-center">
                   <a class="btn btn-warning btn-sm tooltips" href="{{ route('ujian.edit', ['id' => $row->id]) }}">
                     <i class="fa fa-pencil"></i>

@@ -33,7 +33,7 @@ class ApiController extends Controller
     $db = User::where('nisn', $nisn)->first();
     if ($db) {
       $cekJwb = Jawaban::where('user_id', $db->id)->first();
-      $cekUjian = Ulangan::where('aktif', 1)->first();
+      $cekUjian = Ulangan::whereJsonContains('kelas_id', $db->kelas_id)->where('aktif', 1)->first();
       if ($cekJwb ==  null) {
         $reply['data'][] = [
           'message' => 'Maaf tidak ada Tugas / Ujian yang aktif hari ini',
