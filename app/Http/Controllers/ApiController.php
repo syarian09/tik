@@ -189,6 +189,7 @@ class ApiController extends Controller
         $res = Str::contains($item, ':');
         return $res;
       })->toArray();
+
       if (in_array(false, $cek)) {
         $reply['data'][] = [
           'message' => 'Format penulisan SALAH, wajib menggunakan TITIK DUA (:)',
