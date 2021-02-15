@@ -20,6 +20,7 @@ class CreateJawabansTable extends Migration
       $table->string('token')->nullable();
       $table->longText('jawaban')->nullable();
       $table->string('nilai')->nullable();
+      $table->string('hp')->nullable();
       $table->timestamps();
     });
   }
