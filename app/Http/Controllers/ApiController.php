@@ -135,8 +135,8 @@ class ApiController extends Controller
       }
 
       $n = "\n";
-      $balasan = 'Silahkan kirim jawaban anda dengan format berikut : ' . $n;
-      $balasan .= 'JAWABAN:TOKEN contoh JAWABAN:123456' . $n;
+      $balasan = 'Silahkan kirim jawaban, dengan format : ' . $n;
+      $balasan .= 'JAWABAN:TOKEN' . $n;
       $balasan .= '1: contoh 1:A' . $n;
       $balasan .= '2: ' . $n;
       $balasan .= '3: ' . $n;
@@ -184,6 +184,17 @@ class ApiController extends Controller
       $jawab = collect($pesan)->filter(function ($item, $key) {
         return $key != 0 ? $item : false;
       })->filter();
+
+      $cek = $jawab->map(function ($item) {
+        $res = Str::contains($item, ':');
+        return $res;
+      })->toArray();
+      if (in_array(false, $cek)) {
+        $reply['data'][] = [
+          'message' => 'Format penulisan SALAH, wajib menggunakan TITIK DUA (:)',
+        ];
+        return $reply;
+      }
 
       $arr = [];
       foreach ($jawab as $row) {
