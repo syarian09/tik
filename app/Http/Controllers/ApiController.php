@@ -137,11 +137,11 @@ class ApiController extends Controller
       $n = "\n";
       $balasan = 'Silahkan kirim jawaban anda dengan format berikut : ' . $n;
       $balasan .= 'JAWABAN:TOKEN contoh JAWABAN:123456' . $n;
-      $balasan .= '1:Jawaban Anda contoh 1:A' . $n;
-      $balasan .= '2:Jawaban Anda' . $n;
-      $balasan .= '3:Jawaban Anda' . $n;
-      $balasan .= '4:Jawaban Anda' . $n;
-      $balasan .= '5:Jawaban Anda' . $n;
+      $balasan .= '1: contoh 1:A' . $n;
+      $balasan .= '2: ' . $n;
+      $balasan .= '3: ' . $n;
+      $balasan .= '4: ' . $n;
+      $balasan .= '5: ' . $n;
 
       $reply['data'][] = [
         'message' => $balasan,
