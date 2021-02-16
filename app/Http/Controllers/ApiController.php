@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jawaban;
+use App\Models\Kelas;
 use App\Models\Ulangan;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class ApiController extends Controller
@@ -288,5 +288,50 @@ class ApiController extends Controller
   function tokenExits($number)
   {
     return Jawaban::whereToken($number)->exists();
+  }
+
+  public function laporan()
+  {
+    $n = "\n";
+    $kelas = [
+      1 => Str::contains($this->pesan, ['7.1', '71', 'VII.1']),
+      2 => Str::contains($this->pesan, ['7.2', '72', 'VII.2']),
+      3 => Str::contains($this->pesan, ['7.3', '73', 'VII.3']),
+      4 => Str::contains($this->pesan, ['8.1', '81', 'VIII.1']),
+      5 => Str::contains($this->pesan, ['8.2', '82', 'VIII.2']),
+      6 => Str::contains($this->pesan, ['9.1', '91', 'IX.1']),
+      7 => Str::contains($this->pesan, ['9.2', '92', 'IX.2']),
+    ];
+
+    $kelas = collect($kelas)->filter(function ($item, $key) {
+      return $item == true;
+    })->keys()->implode('');
+
+    if ($kelas == '') {
+      $reply['data'][] = [
+        'message' => "Maaf Kelas tidak ditemukan",
+      ];
+      return $reply;
+    }
+    $user_sudah = User::where('kelas_id', $kelas)->whereHas('userjawaban')->get();
+    $user_belum = User::where('kelas_id', $kelas)->whereDoesntHave('userjawaban')->get();
+
+    $sudah = '';
+    foreach ($user_sudah as $key => $value) {
+      $sudah .= $key + 1 . '. ' . $value['name'] . $n;
+    }
+
+    $belum = '';
+    foreach ($user_belum as $key => $value) {
+      $belum .= $key + 1 . '. ' . $value['name'] . $n;
+    }
+
+    $head_s = 'Yang SUDAH mengerjakan tugas minggu ini';
+    $head_b = 'Yang BELUM mengerjakan tugas minggu ini';
+
+    $reply['data'][] = [
+      'message' => $head_s . $n . $n . $sudah . $n . $head_b . $belum,
+    ];
+    return $reply;
   }
 }

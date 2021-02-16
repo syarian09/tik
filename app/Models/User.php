@@ -71,4 +71,9 @@ class User extends Authenticatable
   {
     return Jawaban::where('user_id', $this->id)->first();
   }
+
+  public function userjawaban()
+  {
+    return $this->hasMany(Jawaban::class, 'user_id', 'id');
+  }
 }
