@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jawaban;
-use App\Models\Kelas;
 use App\Models\Ulangan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -60,7 +59,7 @@ class ApiController extends Controller
       $n = "\n";
       $balasan = 'Terima Kasih ' . Str::upper($user->name) . ' Sudah berpatisipasi, ini detail data anda : ' . $n;
       $balasan .= 'Nama : ' . $user->name . $n . 'NISN : ' . $user->nisn . $n . 'Kelas : ' . $user->nama_kelas . $n . 'Token : ' . $token . $n;
-      $balasan .= 'Simpan TOKEN sebaik mungkin, ketik MULAI:TOKEN bila sudah siap mengerjakan tugas contoh MULAI:123456';
+      $balasan .= 'Simpan TOKEN sebaik mungkin, ketik MULAI:TOKEN bila sudah siap mengerjakan tugas contoh MULAI:' . $token . '';
       $reply['data'][] = [
         'message' => $balasan,
       ];
@@ -102,7 +101,7 @@ class ApiController extends Controller
         $arr .= $soal . $a . $b . $c . $d . $n;
       }
       $atas = 'Pilihlah salah satu jawaban a, b, c atau d yang paling benar !' . $n . $n;
-      $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, contoh SELESAI:123456';
+      $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, contoh SELESAI:' . $token . '';
       $reply['data'][] = [
         'message' => $atas . $arr . $selesai,
       ];
@@ -136,7 +135,7 @@ class ApiController extends Controller
 
       $n = "\n";
       $balasan = 'Silahkan kirim jawaban, dengan format : ' . $n;
-      $balasan .= 'JAWABAN:TOKEN' . $n;
+      $balasan .= 'JAWABAN:' . $token . '' . $n;
       $balasan .= '1: contoh 1:A' . $n;
       $balasan .= '2: ' . $n;
       $balasan .= '3: ' . $n;
@@ -218,7 +217,7 @@ class ApiController extends Controller
       $cekToken->save();
 
       $balasan = 'Terima Kasih ' . Str::upper($cekToken->user->name) . ' sudah mengerjakan tugas Bimbingan TIK, jawaban anda sudah disimpan' . $n;
-      $balasan .= 'ketik NILAI:TOKEN contoh NILAI:123456 untuk melihat nilai';
+      $balasan .= 'ketik NILAI:TOKEN contoh NILAI:' . $token . ' untuk melihat nilai';
 
       $reply['data'][] = [
         'message' => $balasan,
