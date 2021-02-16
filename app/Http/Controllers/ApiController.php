@@ -313,8 +313,8 @@ class ApiController extends Controller
       ];
       return $reply;
     }
-    $user_sudah = User::where('kelas_id', $kelas)->whereHas('userjawaban')->get();
-    $user_belum = User::where('kelas_id', $kelas)->whereDoesntHave('userjawaban')->get();
+    $user_sudah = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereHas('userjawaban')->get();
+    $user_belum = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereDoesntHave('userjawaban')->get();
 
     $sudah = '';
     foreach ($user_sudah as $key => $value) {
