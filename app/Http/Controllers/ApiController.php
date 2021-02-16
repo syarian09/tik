@@ -330,7 +330,7 @@ class ApiController extends Controller
     $head_b = 'Yang BELUM mengerjakan tugas minggu ini';
 
     $reply['data'][] = [
-      'message' => $head_s . $n . $n . $sudah . $n . $head_b . $belum,
+      'message' => $head_s . $n . $sudah . $n . $head_b . $n . $belum,
     ];
     return $reply;
   }
