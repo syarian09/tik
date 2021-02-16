@@ -316,12 +316,12 @@ class ApiController extends Controller
     $user_sudah = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereHas('userjawaban')->get();
     $user_belum = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereDoesntHave('userjawaban')->get();
 
-    $sudah = $user_sudah->count() > 0 ? '' : '-- KOSONG --';
+    $sudah = $user_sudah->count() > 0 ? '' : '-- KOSONG --' . $n;
     foreach ($user_sudah as $key => $value) {
       $sudah .= $key + 1 . '. ' . $value['name'] . $n;
     }
 
-    $belum = $user_sudah->count() > 0 ? '' : '-- KOSONG --';
+    $belum = $user_belum->count() > 0 ? '' : '-- KOSONG --' . $n;
     foreach ($user_belum as $key => $value) {
       $belum .= $key + 1 . '. ' . $value['name'] . $n;
     }
