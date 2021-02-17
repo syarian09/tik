@@ -19,7 +19,7 @@ class ApiController extends Controller
   public function ulangan()
   {
     $n = "\n";
-    $balasan = 'Assalamualaikum, Silahkan kirim NISN-nya dengan format NISN:NOMOR NISN, ' . $n . ' contoh => NISN:123456789';
+    $balasan = 'Assalamualaikum, Silahkan kirim NISN-nya dengan format NISN:NOMOR NISN, ' . $n . ' Ketik => NISN:123456789';
 
     $reply['data'][] = [
       'message' => $balasan,
@@ -58,17 +58,16 @@ class ApiController extends Controller
         $token = $cekJwb->token;
       }
       $n = "\n";
-      $balasan = 'Terima Kasih ' . Str::upper($user->name) . ' Sudah berpatisipasi, ini detail data anda : ' . $n;
-      $balasan .= 'Nama : ' . $user->name . $n . 'NISN : ' . $user->nisn . $n . 'Kelas : ' . $user->nama_kelas . $n . 'Token : ' . $token . $n;
-      $balasan .= 'Simpan TOKEN sebaik mungkin, ketik MULAI:TOKEN bila sudah siap mengerjakan tugas ' . $n . '
-      contoh => MULAI:' . $token . '';
+      $balasan = 'Terima Kasih ' . Str::upper($user->name) . ' Sudah berpatisipasi, untuk mengerjakan tugas' . $n;
+      $balasan .= 'Ketik => MULAI:' . $token . '';
+
       $reply['data'][] = [
         'message' => $balasan,
       ];
       return $reply;
     } else {
       $reply['data'][] = [
-        'message' => "Maaf data anda tidak ditemukan atau format penulisan salah",
+        'message' => "NISN Tidak ditemukan atau format penulisan salah",
       ];
       return $reply;
     }
@@ -103,50 +102,15 @@ class ApiController extends Controller
         $arr .= $soal . $a . $b . $c . $d . $n;
       }
       $atas = 'Pilihlah salah satu jawaban a, b, c atau d yang paling benar !' . $n . $n;
-      $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, jawaban tidak perlu ditulis dibuku, ' . $n . '
-      contoh => SELESAI:' . $token . '';
+      $selesai = 'Kirim jawaban dengan format :, ' . $n;
+      $jawaban = 'JAWABAN:' . $token . '' . $n;
+      $jawaban .= '1: ' . $n;
+      $jawaban .= '2: ' . $n;
+      $jawaban .= '3: ' . $n;
+      $jawaban .= '4: ' . $n;
+      $jawaban .= '5: ' . $n;
       $reply['data'][] = [
-        'message' => $atas . $arr . $selesai,
-      ];
-      return $reply;
-    } else {
-      $reply['data'][] = [
-        'message' => "Maaf TOKEN tidak ditemukan atau format penulisan salah",
-      ];
-      return $reply;
-    }
-  }
-
-  public function terimaSelesai()
-  {
-    $token = Str::of($this->pesan)->after(':')->trim();
-    $cekToken = Jawaban::where('token', $token)->with('user')->with('ulangan')->first();
-
-    if ($cekToken) {
-      if ($cekToken->ulangan->aktif == 0) {
-        $reply['data'][] = [
-          'message' => 'Maaf waktu pengerjaan tugas dengan token ' . $cekToken->token . ', sudah selesai, terima kasih',
-        ];
-        return $reply;
-      }
-      if ($cekToken->jawaban) {
-        $reply['data'][] = [
-          'message' => 'Anda sudah mengerjakan tugas dengan token ' . $cekToken->token . ', terima kasih',
-        ];
-        return $reply;
-      }
-
-      $n = "\n";
-      $balasan = 'Silahkan kirim jawaban, dengan format : ' . $n . $n;
-      $balasan .= 'JAWABAN:' . $token . '' . $n;
-      $balasan .= '1: contoh 1:A' . $n;
-      $balasan .= '2: ' . $n;
-      $balasan .= '3: ' . $n;
-      $balasan .= '4: ' . $n;
-      $balasan .= '5: ' . $n;
-
-      $reply['data'][] = [
-        'message' => $balasan,
+        'message' => $atas . $arr . $selesai . $jawaban,
       ];
       return $reply;
     } else {
@@ -223,19 +187,46 @@ class ApiController extends Controller
       }
       $jml = count($arr);
       $ulangan = collect(json_decode($cekToken->ulangan->soal))->count();
+
       if ($jml != $ulangan) {
         $reply['data'][] = [
           'message' => 'Jawaban anda tidak lengkap, silahkan periksa kembali jawaban anda',
         ];
         return $reply;
       }
+
       $arr = collect($arr)->toJson();
       $cekToken->jawaban = $arr;
       $cekToken->hp = $this->sender;
       $cekToken->save();
 
+      $jawab = json_decode($cekToken->jawaban ?? [], true);
+      $total = 0;
+      $benar = [];
+
+      foreach ($jawab as $no => $jwb) {
+        $ujian = $cekToken->ulangan->soal;
+        $ujian = json_decode($ujian, true);
+        $total = count($ujian);
+        $nilai = [];
+        foreach ($ujian as $k => $v) {
+          if ($no == $v['no'] && $jwb == $v['jawaban']) {
+            $nilai[$k] = 1;
+          } else {
+            $nilai[$k] = 0;
+          }
+        }
+        $benar[] = $nilai;
+      }
+
+      $benar = collect($benar)->flatten()->sum();
+      $nilai = ($benar / $total) * 100;
+      $simpan_nilai = ['benar' => $benar, 'nilai' => $nilai];
+      $cekToken->nilai = json_encode($simpan_nilai);
+      $cekToken->save();
+
       $balasan = 'Terima Kasih ' . Str::upper($cekToken->user->name) . ' sudah mengerjakan tugas Bimbingan TIK, jawaban anda sudah disimpan' . $n;
-      $balasan .= 'ketik NILAI:TOKEN ' . $n . 'contoh => NILAI:' . $token . $n . ' untuk melihat nilai';
+      $balasan .= 'ketik => NILAI:' . $token . ' untuk melihat nilai';
 
       $reply['data'][] = [
         'message' => $balasan,
@@ -248,37 +239,16 @@ class ApiController extends Controller
       return $reply;
     }
   }
+
   public function terimaNilai()
   {
     $token = Str::of($this->pesan)->after(':')->trim();
     $cekToken = Jawaban::where('token', $token)->with('user')->with('ulangan')->first();
     if ($cekToken) {
-      $jawab = json_decode($cekToken->jawaban ?? [], true);
-      $total = 0;
-      $benar = [];
-      foreach ($jawab as $no => $jwb) {
-        $ulangan = $cekToken->ulangan->soal;
-        $ulangan = json_decode($ulangan, true);
-        $total = count($ulangan);
-        $nilai = [];
-        foreach ($ulangan as $k => $v) {
-          if ($no == $v['no'] && $jwb == $v['jawaban']) {
-            $nilai[$k] = 1;
-          } else {
-            $nilai[$k] = 0;
-          }
-        }
-        $benar[] = $nilai;
-      }
-      $benar = collect($benar)->flatten()->sum();
-      $nilai = ($benar / $total) * 100;
-
-      $cekToken->nilai = $nilai;
-      $cekToken->save();
-
       $n = "\n";
-      $balasan = 'Jumlah Benar = ' . $benar . $n;
-      $balasan .= 'Jumlah Nilai = ' . $nilai . $n . $n;
+      $nilai = json_decode($cekToken->nilai, true);
+      $balasan = 'Jumlah Benar = ' . $nilai['benar'] . $n;
+      $balasan .= 'Total Nilai = ' . $nilai['nilai'] . $n . $n;
       $selesai = "Jaga kesehatan ya..., Wassalamu'alaikum wr. wb";
 
       $reply['data'][] = [
@@ -291,6 +261,23 @@ class ApiController extends Controller
       ];
       return $reply;
     }
+  }
+
+  public function convernilai()
+  {
+    $jawab = Jawaban::all();
+
+    foreach ($jawab as $key => $value) {
+      $db = Jawaban::find($value['id']);
+      if ($value['nilai']) {
+        $benar = intval($value['nilai']) / 20;
+        $sn = ['benar' => $benar, 'nilai' => $value['nilai']];
+        $db->nilai = json_encode($sn);
+        $db->save();
+      }
+    }
+
+    return Jawaban::all();
   }
 
   function generateToken()

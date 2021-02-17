@@ -26,3 +26,4 @@ Route::post('terimaselesai', [ApiController::class, 'terimaSelesai']);
 Route::post('terimajawaban', [ApiController::class, 'terimaJawaban']);
 Route::post('terimanilai', [ApiController::class, 'terimaNilai']);
 Route::post('laporan', [ApiController::class, 'laporan']);
+Route::post('nilai', [ApiController::class, 'convernilai']);
