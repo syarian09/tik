@@ -18,7 +18,9 @@ class ApiController extends Controller
 
   public function ulangan()
   {
-    $balasan = 'Assalamualaikum ' . $this->sender . ' Silahkan kirim NISN anda sebelum mengerjakan tugas Bimbingan TIK dengan format NISN:, contoh NISN:123456789';
+    $n = "\n";
+    $balasan = 'Assalamualaikum ' . $this->sender . ' Silahkan kirim NISN anda sebelum mengerjakan tugas Bimbingan TIK dengan format NISN:, ' . $n . '
+    contoh => NISN:123456789';
 
     $reply['data'][] = [
       'message' => $balasan,
@@ -59,7 +61,8 @@ class ApiController extends Controller
       $n = "\n";
       $balasan = 'Terima Kasih ' . Str::upper($user->name) . ' Sudah berpatisipasi, ini detail data anda : ' . $n;
       $balasan .= 'Nama : ' . $user->name . $n . 'NISN : ' . $user->nisn . $n . 'Kelas : ' . $user->nama_kelas . $n . 'Token : ' . $token . $n;
-      $balasan .= 'Simpan TOKEN sebaik mungkin, ketik MULAI:TOKEN bila sudah siap mengerjakan tugas contoh MULAI:' . $token . '';
+      $balasan .= 'Simpan TOKEN sebaik mungkin, ketik MULAI:TOKEN bila sudah siap mengerjakan tugas ' . $n . '
+      contoh => MULAI:' . $token . '';
       $reply['data'][] = [
         'message' => $balasan,
       ];
@@ -101,7 +104,8 @@ class ApiController extends Controller
         $arr .= $soal . $a . $b . $c . $d . $n;
       }
       $atas = 'Pilihlah salah satu jawaban a, b, c atau d yang paling benar !' . $n . $n;
-      $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, contoh SELESAI:' . $token . '';
+      $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, ' . $n . '
+      contoh => SELESAI:' . $token . '';
       $reply['data'][] = [
         'message' => $atas . $arr . $selesai,
       ];
@@ -134,7 +138,7 @@ class ApiController extends Controller
       }
 
       $n = "\n";
-      $balasan = 'Silahkan kirim jawaban, dengan format : ' . $n;
+      $balasan = 'Silahkan kirim jawaban, dengan format : ' . $n . $n;
       $balasan .= 'JAWABAN:' . $token . '' . $n;
       $balasan .= '1: contoh 1:A' . $n;
       $balasan .= '2: ' . $n;
@@ -217,7 +221,7 @@ class ApiController extends Controller
       $cekToken->save();
 
       $balasan = 'Terima Kasih ' . Str::upper($cekToken->user->name) . ' sudah mengerjakan tugas Bimbingan TIK, jawaban anda sudah disimpan' . $n;
-      $balasan .= 'ketik NILAI:TOKEN contoh NILAI:' . $token . ' untuk melihat nilai';
+      $balasan .= 'ketik NILAI:TOKEN ' . $n . 'contoh => NILAI:' . $token . $n . ' untuk melihat nilai';
 
       $reply['data'][] = [
         'message' => $balasan,
