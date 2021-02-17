@@ -193,6 +193,21 @@ class ApiController extends Controller
         return $res;
       })->toArray();
 
+      $cek2 = $jawab->map(function ($item) {
+        $res = Str::of($item)->after(':')->trim();
+        $res = Str::length($res);
+        return $res;
+      })->filter(function ($item, $key) {
+        return $item > 1;
+      })->count();
+
+      if ($cek2) {
+        $reply['data'][] = [
+          'message' => 'Format Jawaban Salah, Hanya Opsi (A / B / C / D) yang diperbolehkan ' . $n . 'contoh => 1:A',
+        ];
+        return $reply;
+      }
+
       if (in_array(false, $cek)) {
         $reply['data'][] = [
           'message' => 'Format penulisan SALAH, wajib menggunakan TITIK DUA (:)',
