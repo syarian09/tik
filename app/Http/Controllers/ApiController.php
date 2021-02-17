@@ -19,8 +19,7 @@ class ApiController extends Controller
   public function ulangan()
   {
     $n = "\n";
-    $balasan = 'Assalamualaikum ' . $this->sender . ' Silahkan kirim NISN anda sebelum mengerjakan tugas Bimbingan TIK dengan format NISN:, ' . $n . '
-    contoh => NISN:123456789';
+    $balasan = 'Assalamualaikum, Silahkan kirim NISN-nya dengan format NISN:NOMOR NISN, ' . $n . ' contoh => NISN:123456789';
 
     $reply['data'][] = [
       'message' => $balasan,
