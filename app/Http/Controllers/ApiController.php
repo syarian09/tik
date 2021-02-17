@@ -263,23 +263,6 @@ class ApiController extends Controller
     }
   }
 
-  public function convernilai()
-  {
-    $jawab = Jawaban::all();
-
-    foreach ($jawab as $key => $value) {
-      $db = Jawaban::find($value['id']);
-      if ($value['nilai']) {
-        $benar = intval($value['nilai']) / 20;
-        $sn = ['benar' => $benar, 'nilai' => $value['nilai']];
-        $db->nilai = json_encode($sn);
-        $db->save();
-      }
-    }
-
-    return Jawaban::all();
-  }
-
   function generateToken()
   {
     $number = mt_rand(100000, 999999);
