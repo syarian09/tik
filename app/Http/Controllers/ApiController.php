@@ -104,7 +104,7 @@ class ApiController extends Controller
         $arr .= $soal . $a . $b . $c . $d . $n;
       }
       $atas = 'Pilihlah salah satu jawaban a, b, c atau d yang paling benar !' . $n . $n;
-      $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, ' . $n . '
+      $selesai = 'ketik SELESAI:TOKEN bila sudah selesai mengerjakan, jawaban tidak perlu ditulis dibuku, ' . $n . '
       contoh => SELESAI:' . $token . '';
       $reply['data'][] = [
         'message' => $atas . $arr . $selesai,
