@@ -6,6 +6,7 @@ use App\Models\Jawaban;
 use App\Models\Ulangan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ApiController extends Controller
@@ -19,6 +20,11 @@ class ApiController extends Controller
   public function ulangan()
   {
     $n = "\n";
+    $pathToImage = asset('/assets/img/no_image.jpg');    // TODO: Replace it with the path to your image
+    $imageData = file_get_contents($pathToImage);
+    $base64Image = base64_encode($imageData);
+    return $base64Image;
+
     $balasan = 'Assalamualaikum, Silahkan kirim NISN-nya dengan format NISN:NOMOR NISN, ' . $n . ' Ketik => NISN:123456789';
 
     $reply['data'][] = [
@@ -300,11 +306,18 @@ class ApiController extends Controller
       ];
       return $reply;
     }
-    $user_sudah = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereHas('userjawaban')->get();
-    $user_belum = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereDoesntHave('userjawaban')->get();
+    $user_sudah = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereHas('userjawaban', function ($q) {
+      $q->whereNotNull('jawaban');
+    });
+
+    $id_sudah = collect($user_sudah->get('id')->toArray())->map(function ($item, $key) {
+      return $item['id'];
+    })->toArray();
+
+    $user_belum = User::where('kelas_id', $kelas)->whereNotIn('nisn', [7, 8, 9])->whereNotIn('id', $id_sudah)->get();
 
     $sudah = $user_sudah->count() > 0 ? '' : '-- KOSONG --' . $n;
-    foreach ($user_sudah as $key => $value) {
+    foreach ($user_sudah->get() as $key => $value) {
       $sudah .= $key + 1 . '. ' . $value['name'] . $n;
     }
 
