@@ -20,13 +20,7 @@ class ApiController extends Controller
   public function ulangan()
   {
     $n = "\n";
-    $pathToImage = asset('/assets/img/no_image.jpg');    // TODO: Replace it with the path to your image
-    $imageData = file_get_contents($pathToImage);
-    $base64Image = base64_encode($imageData);
-    return $base64Image;
-
     $balasan = 'Assalamualaikum, Silahkan kirim NISN-nya dengan format NISN:NOMOR NISN, ' . $n . ' Ketik => NISN:123456789';
-
     $reply['data'][] = [
       'message' => $balasan,
     ];
