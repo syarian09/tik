@@ -21,6 +21,7 @@ class ApiController extends Controller
   {
     $n = "\n";
     $balasan = 'Assalamualaikum, Silahkan kirim NISN-nya dengan format NISN:NOMOR NISN, ' . $n . ' Ketik => NISN:123456789';
+
     $reply['data'][] = [
       'message' => $balasan,
     ];
